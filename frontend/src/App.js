@@ -31,7 +31,7 @@ class App extends Component {
   };
   renderTabList = () => {
     return (
-      <div className="my-5 tab-list">
+      <div className="tab-list">
         <span
           onClick={() => this.displayCompleted(true)}
           className={this.state.viewCompleted ? "active" : ""}
@@ -91,17 +91,20 @@ class App extends Component {
     if (item.id) {
       axios
         .put(`http://localhost:8000/api/todos/${item.id}/`, item)
-        .then(res => this.refreshList());
+        .then(res => this.refreshList())
+        .catch(err => console.log(err)); 
       return;
     }
     axios
       .post("http://localhost:8000/api/todos/", item)
-      .then(res => this.refreshList());
+      .then(res => this.refreshList())
+      .catch(err => console.log(err));
   };
   handleDelete = item => {
     axios
       .delete(`http://localhost:8000/api/todos/${item.id}`)
-      .then(res => this.refreshList());
+      .then(res => this.refreshList())
+      .catch(err => console.log(err));
   };
   createItem = () => {
     const item = { title: "", description: "", completed: false };
@@ -115,7 +118,7 @@ class App extends Component {
       <main className="content">
         <h1 className="text-white text-uppercase text-center my-4">Todo app</h1>
         <div className="row ">
-          <div className="col-md-6 col-sm-10 mx-auto p-0">
+          <div className="-md-6 col-sm-10 mxcol-auto p-0">
             <div className="card p-3">
               <div className="">
                 <button onClick={this.createItem} className="btn btn-primary">
